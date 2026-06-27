@@ -1,20 +1,19 @@
-MC_TokenRefreshFilteredDE SSJS:
 <script runat="server">
     Platform.Load("core", "1");
     
     // --- Define the list of Filtered Custom Object (DE) external keys to refresh ---
     var objectKeys = [
-        "67ae2a16-f376-f011-ba7a-5cba2c198cc0", // OR Providers for Engagement Workflow NA
-        "68c696f3-3a51-f011-ba7a-5cba2c198cc0"  // WA Providers for Engagement Workflow NA
+        "YOUR_DE_EXTERNAL_KEY_1", // e.g., Regional Filtered Audience 01
+        "YOUR_DE_EXTERNAL_KEY_2"  // e.g., Regional Filtered Audience 02
     ];
 
     // --- Configuration for Call-1: Get Token ---
-    var authUrl = 'https://mcgzmpd574xrxdws9nsyz2z1jr64.auth.marketingcloudapis.com/v2/token';
+    var authUrl = 'https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/v2/token';
     var payload = {
         "grant_type": "client_credentials",
-        "client_id": "90ucil64n7dljpodm06zhcwf", 
-        "client_secret": "o74qCBtGEYNrGp0frPL1O8Rp", 
-        "account_id": "534003610" 
+        "client_id": "YOUR_CLIENT_ID", 
+        "client_secret": "YOUR_CLIENT_SECRET", 
+        "account_id": "YOUR_ACCOUNT_MID" 
     };
 
     var accessToken = null;
@@ -42,7 +41,6 @@ MC_TokenRefreshFilteredDE SSJS:
         Write('<hr>');
 
         // --- Execute Call-2: Loop through and Refresh Objects ---
-        
         var authHeader = 'Bearer ' + accessToken;
         var dataPayload = '{}'; 
         
@@ -85,6 +83,3 @@ MC_TokenRefreshFilteredDE SSJS:
     
     Write('</div>');
 </script>
-
-
-
