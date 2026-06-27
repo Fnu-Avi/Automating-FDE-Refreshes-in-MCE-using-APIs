@@ -1,0 +1,29 @@
+{
+	"info": {
+		"name": "SFMC Filtered DE Refresh Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Get Token",
+			"request": {
+				"method": "POST",
+				"url": "https://{{subdomain}}.auth.marketingcloudapis.com/v2/token"
+			}
+		},
+		{
+			"name": "2. Get DE ObjectID",
+			"request": {
+				"method": "GET",
+				"url": "https://{{subdomain}}.rest.marketingcloudapis.com/data/v1/customobjectdata/key/{{de_external_key}}/rowset"
+			}
+		},
+		{
+			"name": "3. Refresh Filtered DE",
+			"request": {
+				"method": "POST",
+				"url": "https://{{subdomain}}.rest.marketingcloudapis.com/email/v1/filteredCustomObjects/{{de_object_id}}/refresh"
+			}
+		}
+	]
+}
