@@ -1,39 +1,55 @@
-# Automated Filtered Data Extension Refresh via Salesforce Marketing Cloud REST APIs
+# Automating Filtered Data Extension Refreshes in MCE using APIs
 
-An enterprise-ready programmatic architecture to automate the execution, refresh, and array looping of **Filtered Data Extensions (Custom Objects)** inside **Salesforce Marketing Cloud (SFMC) Engagement**. 
+An enterprise-ready programmatic architecture to automate the execution, refresh, and array looping of **Filtered Data Extensions (Custom Objects)** inside **Salesforce Marketing Cloud Engagement (MCE)**. 
 
 ## 🚀 The Challenge
-Standard Filtered Data Extensions inside SFMC must normally be refreshed manually via the UI or by configuring standard filter interaction blocks inside Automation Studio. This repository eliminates those constraints by showing how to invoke standard **REST Engine endpoints** natively via **SSJS (Server-Side JavaScript)** and sequential automation tasks.
+Standard Filtered Data Extensions inside SFMC typically require manual interaction via the user interface or a configured Filter Activity within Automation Studio. This framework eliminates those overhead constraints by executing standard **REST Engine endpoints** natively via **SSJS (Server-Side JavaScript)**—allowing you to dynamically chain or schedule refreshes programmatically.
 
 ---
 
 ## 🛠️ API Sequence Flow
 
-The integration executes across three primary steps:
-1. **OAuth v2 Token Exchange:** Hands over client secrets to the authentication endpoint to fetch a short-lived `access_token` and appropriate `rest_instance_url`.
-2. **Data Extension Discovery:** Uses Data rest services to target custom object keys.
-3. **Asynchronous Execution:** Posts an empty payload targeting the custom object's underlying unique identifier at `/email/v1/filteredCustomObjects/{id}/refresh`.
+The integration executes sequentially across three primary operations:
+1. **OAuth v2 Token Exchange:** Formulates a secure handshake with the authentication server (`/v2/token`) using client credentials to fetch an operational `access_token` and target `rest_instance_url`.
+2. **Data Extension Discovery:** Verifies and targets rows by referencing the Filtered Data Extension's External Key identifier.
+3. **Asynchronous Execution:** Submits a POST request with an empty body payload targeting the underlying Custom Object ID at `/email/v1/filteredCustomObjects/{id}/refresh` to trigger the backend data re-evaluation.
 
 ---
 
-## 🤖 Implementation: Native SSJS
+## 📂 Repository Layout
 
-Deploy the code located in `src/MC_TokenRefreshFilteredDE.ssjs` within an **Automation Studio Script Activity** or an administrative utility **CloudPage**.
+```text
+Automating-FDE-Refreshes-in-MCE-using-APIs/
+├── .gitignore                   # Excludes runtime logging and local editor overhead
+├── LICENSE                      # MIT Open Source usage guidelines
+├── README.md                    # Main operational playbook and architecture guide
+├── api/
+│   └── curl_examples.sh         # Sanitized command-line cURL templates for sandboxed testing
+└── src/
+    └── MC_TokenRefreshFilteredDE.ssjs # Production script for Automation Studio Script Activities
+```
 
-### Features built-in:
-* **Multi-Object Looping:** Passes an array of separate Data Extension external keys (`objectKeys`), refreshing them in sequence during a single runtime.
-* **Inline DOM Logging:** Outputs highly visible, stylized diagnostic responses directly to tracking tables/pages when executed manually.
-* **Error Containment:** Protects loops from breaking if an single invalid token frame drops.
+## 🤖 Implementation: Native SSJS Scripting
 
-## ⚙️ Provisioning and Access Requirements
+Deploy the optimized distribution script located in `src/MC_TokenRefreshFilteredDE.ssjs` within an **Automation Studio Script Activity** or an internal administrative utility **CloudPage**.
 
-To use this solution, configure an **Installed Package** in Salesforce Marketing Cloud under `Administration > Platform Tools > Apps`:
-1. Add an API Integration Component.
-2. Select **Server-to-Server** authentication integration.
-3. Apply the following permissions to the scoped package:
+### Built-in Framework Features:
+* **Multi-Object Looping:** Iterates through a variable configuration array of separate Data Extension external keys (`objectKeys`), processing multiple asynchronous refreshes safely in a single execution thread.
+* **Inline DOM Logging:** Outputs highly readable, HTML-stylized diagnostic updates directly to the viewport when run manually in an administrative setup.
+* **Error Containment:** Structured conditional checkblocks insulate the looping routine, ensuring a single misconfigured key doesn't crash the entire transaction flow.
+
+## ⚙️ Provisioning & Security Requirements
+
+To deploy this automation pattern, you must configure an **Installed Package** within your target Marketing Cloud instance under `Setup > Platform Tools > Apps > Installed Packages`:
+
+1. Click **New**, name the package, and add an **API Integration** Component.
+2. Select the **Server-to-Server** authentication properties flow.
+3. Apply these exact minimum-scoped permissions to satisfy the framework:
    * **Automation:** `Execute`
    * **Data Extensions:** `Read`, `Write`
 
+> ⚠️ **Security Warning:** Never commit live, un-sanitized client secrets or tenant-specific subdomains to public remote version control systems. Always use configuration strings or environment variables when deploying live scripts.
+
 ---
 ## 📄 License
-This repository is licensed under the MIT License.
+This repository is open-source software licensed under the [MIT License](LICENSE).
