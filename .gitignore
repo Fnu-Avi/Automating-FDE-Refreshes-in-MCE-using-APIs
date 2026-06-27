@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Shell & execution history logs
+*.log
+.bash_history
+
+# Local development environment properties
+.env
+.idea/
+.vscode/
