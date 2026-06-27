@@ -1,5 +1,3 @@
-# Automating-FDE-s-in-MCE-using-APIs
-
 # Automated Filtered Data Extension Refresh via Salesforce Marketing Cloud REST APIs
 
 An enterprise-ready programmatic architecture to automate the execution, refresh, and array looping of **Filtered Data Extensions (Custom Objects)** inside **Salesforce Marketing Cloud (SFMC) Engagement**. 
